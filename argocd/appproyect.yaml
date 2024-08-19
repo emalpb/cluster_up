@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: declarativeproject
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: Example project used to demonstrate Declarative deployments in ArgoCD
+  sourceRepos:
+  - '*'
+  destinations:
+  - namespace: robustaargo
+    server: https://kubernetes.default.svc
