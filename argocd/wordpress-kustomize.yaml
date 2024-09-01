@@ -4,14 +4,14 @@ metadata:
   name: wordpress
   namespace: argocd
 spec:
-  project: wordpress
+  project: wordpress-project
   source:
     repoURL: 'https://github.com/emalpb/cluster_up.git'
     path: kustomize/overlays/
     targetRevision: main
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: default
+    namespace: wordpress
   syncPolicy:
     automated:
       selfHeal: true
