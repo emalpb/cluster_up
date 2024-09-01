@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: declarativeproject
+  name: declarative-project
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -10,5 +10,5 @@ spec:
   sourceRepos:
   - '*'
   destinations:
-  - namespace: robustaargo
+  - namespace: default
     server: https://kubernetes.default.svc
