@@ -4,10 +4,10 @@ metadata:
   name: wordpress
   namespace: argocd
 spec:
-  project: default
+  project: wordpress
   source:
     repoURL: 'https://github.com/emalpb/cluster_up.git'
-    path: argocd
+    path: kustomize/overlays/
     targetRevision: main
   destination:
     server: 'https://kubernetes.default.svc'
