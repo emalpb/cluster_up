@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prueba
+  namespace: argocd
+spec:
+  project: prueba-project
+  source:
+    repoURL: 'https://github.com/GoogleCloudPlatform/microservices-demo/tree/main.git'
+    path: kustomize/
+    targetRevision: main
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: prueba
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
