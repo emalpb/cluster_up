@@ -12,3 +12,5 @@ spec:
   destinations:
   - namespace: wordpress
     server: https://kubernetes.default.svc
+  sourceNamespace:
+  - wordpress
