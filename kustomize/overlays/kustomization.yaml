@@ -5,6 +5,7 @@ namespace: wordpress
 
 components:
   - ../components/mysql
+  - ../components/dbconfig
   # - ../components/postgres
   # - ../components/redis
 
