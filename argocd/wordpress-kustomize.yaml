@@ -4,13 +4,14 @@ metadata:
   name: wordpress
   namespace: argocd
 spec:
+  project: default
   source:
     repoURL: 'https://github.com/emalpb/cluster_up.git'
     path: argocd
     targetRevision: main
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: argocd
+    namespace: wordpress
   syncPolicy:
     automated:
       selfHeal: true
