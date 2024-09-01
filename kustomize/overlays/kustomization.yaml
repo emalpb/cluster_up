@@ -3,6 +3,11 @@ kind: Kustomization
 
 namespace: wordpress
 
+components:
+  - ../components/mysql
+  # - ../components/postgres
+  # - ../components/redis
+
 resources:
 - wordpress
 - namespace.yaml
