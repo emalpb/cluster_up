@@ -10,5 +10,8 @@ spec:
   sourceRepos:
   - '*'
   destinations:
-  - namespace: '*'
+  - namespace: wordpress
     server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
