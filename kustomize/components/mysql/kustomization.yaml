@@ -10,6 +10,10 @@ secretGenerator:
 generatorOptions:
   disableNameSuffixHash: true
 
+images:
+ - name: mariadb
+   newName: mariadb
+   newTag: 10.5.8
 
 resources:
 - deployment.yaml
