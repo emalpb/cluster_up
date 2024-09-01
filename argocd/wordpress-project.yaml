@@ -10,7 +10,5 @@ spec:
   sourceRepos:
   - '*'
   destinations:
-  - namespace: wordpress
+  - namespace: '*'
     server: https://kubernetes.default.svc
-  sourceNamespace:
-  - wordpress
