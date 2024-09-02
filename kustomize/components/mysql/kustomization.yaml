@@ -11,7 +11,7 @@ generatorOptions:
   disableNameSuffixHash: true
 
 images:
- - name: mariadb
+ - name: mysql
    newName: mariadb
    newTag: 10.5.8
 
