@@ -6,7 +6,7 @@ metadata:
 spec:
   project: prueba-project
   source:
-    repoURL: 'https://github.com/GoogleCloudPlatform/microservices-demo/tree/main.git'
+    repoURL: 'https://github.com/GoogleCloudPlatform/microservices-demo.git'
     path: kustomize/
     targetRevision: main
   destination:
