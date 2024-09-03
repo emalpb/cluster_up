@@ -1,0 +1,57 @@
+name: Prepare Manifests and Deploy to GKE
+
+on:
+    release:
+      types: [published]
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: kustomize-demo-cluster 
+  GKE_ZONE: us-central1-c
+  ENVIRONMENT: dev
+
+jobs:
+  setup-prepare-manifests-deploy:
+    name: Setup, Prepare, and Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    # Configure Workload Identity Federation and generate an access token.
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        token_format: 'access_token'
+        workload_identity_provider:  ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_ID }}
+        service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+    # Get the GKE credentials so we can deploy to the cluster
+    - name: Set up GKE credentials
+      uses: google-github-actions/get-gke-credentials@v0
+      with:
+        cluster_name: ${{ env.GKE_CLUSTER }}
+        location: ${{ env.GKE_ZONE }}
+
+    # Download and setup latest kubectl version 
+    - name: Set up kubectl
+      uses: azure/setup-kubectl@v3
+      with:
+        version: 'latest'
+
+    # Deploy to the GKE cluster
+    - name: Deploy to GKE
+      run: |-
+        kubectl kustomize code-samples/6-multiple-envs/day2/dev/ > deploy.yml
+        echo "Kustomize output:"
+        cat deploy.yml
+        
+        kubectl apply -f deploy.yml
+        kubectl get services -n $ENVIRONMENT -o wide
