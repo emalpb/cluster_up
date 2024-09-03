@@ -6,7 +6,7 @@ namePrefix: helm-
 resources:
 # - mysql
 # - ../base
-- namespace.yml
+- namespace.yaml
 
 # Install mysql using helm chart
 helmCharts:
