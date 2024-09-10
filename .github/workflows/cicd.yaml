@@ -35,3 +35,12 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
+      - name: Scan repo with kube-linter
+        uses: stackrox/kube-linter-action@v1.0.4
+        with:
+          directory: kustomize
+          #config: .kube-linter/config.yaml
+          #format: sarif
+          #output-file: kube-linter.sarif
+        
+
