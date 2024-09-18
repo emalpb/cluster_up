@@ -20,12 +20,14 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
+
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: hadolint/hadolint-action@v3.1.0    # dockerfile linter
         with:
@@ -49,4 +51,16 @@ jobs:
           #format: sarif
           #output-file: kube-linter.sarif
         
+      - name: Argo CD Action
+        uses: clowdhaus/argo-cd-action@v2.2.0
+        env:
+          ARGOCD_AUTH_TOKEN: ${{ secrets.ARGOCD_AUTH_TOKEN }}
+          ARGOCD_SERVER: ${{ secrets.ARGOCD_SERVER }}
+        with:
+          command: app list
+          options: |
+              --auth-token ${ARGOCD_AUTH_TOKEN}
+              --server ${ARGOCD_SERVER}
+          # command: version
+          # options: --client
 
