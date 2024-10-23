@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: awx
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: awx
+    repoURL: http://honestica.github.io/lifen-charts/
+    targetRevision: 10.0.3
+    helm:
+      releaseName: awx
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
