@@ -6,11 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    chart: awx
-    repoURL: http://honestica.github.io/lifen-charts/
-    targetRevision: 10.0.3
-    helm:
-      releaseName: awx
+    repoURL: 'https://github.com/emalpb/cluster_up.git'
+    path: kustomize/awx/
+    targetRevision: main
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: default
