@@ -3,10 +3,5 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
+  - github.com/GoogleCloudPlatform/microservices-demo/kustomize?ref=main
 
-helmCharts:
-  - name: onlineboutique
-    repo: oci://us-docker.pkg.dev/online-boutique-ci/charts
-    releaseName: onlineboutique
-    version: 0.3.7
-    namespace: onlineboutique
