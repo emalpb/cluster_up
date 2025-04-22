@@ -45,6 +45,15 @@ spec:
               create: true
               namespace: istio-system
             {{- end }}
+            {{- if eq .name "jaeger" }}
+            provisionDataStore:
+              cassandra: false
+              elasticsearch: false
+            allInOne:
+              enabled: true
+            storage:
+              type: memory
+            {{- end }}
       destination:
         server: https://kubernetes.default.svc
         namespace: istio-system
