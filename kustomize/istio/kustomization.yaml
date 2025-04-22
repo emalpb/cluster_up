@@ -3,6 +3,9 @@ kind: Kustomization
 
 namePrefix: helm-
 
+resources:
+  - namespace.yaml
+
 helmCharts:
   - name: istio
     repo: https://istio-release.storage.googleapis.com/charts
