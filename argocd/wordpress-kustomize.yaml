@@ -4,7 +4,7 @@ metadata:
   name: wordpress
   namespace: argocd
 spec:
-  project: wordpress-project
+  project: wordpress
   source:
     repoURL: 'https://github.com/emalpb/cluster_up.git'
     path: kustomize/overlays/
