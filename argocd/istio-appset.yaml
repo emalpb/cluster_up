@@ -28,7 +28,7 @@ spec:
     metadata:
       name: '{{name}}'
     spec:
-      project: default
+      project: istio-system
       source:
         repoURL: '{{ if .repoURL }}{{ .repoURL }}{{ else }}https://istio-release.storage.googleapis.com/charts{{ end }}'
         chart: '{{chart}}'
