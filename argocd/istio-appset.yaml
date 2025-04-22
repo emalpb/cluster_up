@@ -16,10 +16,10 @@ spec:
           - name: istio-ingressgateway
             chart: gateway
             revision: 1.25.2
-          # - name: jaeger
-          #   chart: jaeger
-          #   repoURL: https://jaegertracing.github.io/helm-charts
-          #   revision: 0.71.13
+          - name: jaeger
+            chart: jaeger
+            repoURL: https://jaegertracing.github.io/helm-charts
+            revision: 0.71.13
           - name: kiali-operator
             chart: kiali-operator
             repoURL: https://kiali.org/helm-charts
