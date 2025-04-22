@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: istio-system
+  namespace: argocd
+spec:
+  description: "Proyecto para gestionar Istio"
+  destinations:
+    - namespace: istio-system
+      server: https://kubernetes.default.svc
+  sourceRepos:
+    - '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'

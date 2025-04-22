@@ -4,6 +4,7 @@ metadata:
   name: istio
   namespace: argocd
 spec:
+  project: istio-system
   source:
     repoURL: 'https://github.com/emalpb/cluster_up.git'
     path: kustomize/istio/
