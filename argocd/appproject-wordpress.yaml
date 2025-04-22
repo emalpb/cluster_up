@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: wordpress-system
+  name: wordpress
   namespace: argocd
 spec:
   description: "Proyecto para gestionar wordpress"
   destinations:
-    - namespace: wordpress-system
+    - namespace: wordpress
       server: https://kubernetes.default.svc
   sourceRepos:
     - '*'
