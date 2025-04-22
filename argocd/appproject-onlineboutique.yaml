@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: onlineboutique
+  namespace: argocd
+spec:
+  description: "Proyecto para gestionar onlineboutique"
+  destinations:
+    - namespace: onlineboutique
+      server: https://kubernetes.default.svc
+  sourceRepos:
+    - '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'

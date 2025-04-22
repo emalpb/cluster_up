@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - namespace.yaml
+
+helmCharts:
+  - name: onlineboutique
+    repo: oci://us-docker.pkg.dev/online-boutique-ci/charts
+    releaseName: onlineboutique
+    version: 0.3.7
+    namespace: onlineboutique
