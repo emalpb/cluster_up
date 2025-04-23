@@ -17,9 +17,9 @@ spec:
             chart: gateway
             revision: 1.25.2
           - name: jaeger
-            chart: jaeger
-            repoURL: https://jaegertracing.github.io/helm-charts
-            revision: 0.71.13
+            chart: jaeger-all-in-one
+            repoURL: https://raw.githubusercontent.com/hansehe/jaeger-all-in-one/master/helm/charts
+            revision: 0.1.12
           - name: kiali-operator
             chart: kiali-operator
             repoURL: https://kiali.org/helm-charts
@@ -44,15 +44,6 @@ spec:
             cr:
               create: true
               namespace: istio-system
-            {{- end }}
-            {{- if eq .name "jaeger" }}
-            provisionDataStore:
-              cassandra: false
-              elasticsearch: false
-            allInOne:
-              enabled: true
-            storage:
-              type: memory
             {{- end }}
       destination:
         server: https://kubernetes.default.svc
