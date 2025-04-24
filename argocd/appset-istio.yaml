@@ -20,7 +20,7 @@ generators:
           repoURL: https://istio-release.storage.googleapis.com/charts
         - name: jaeger
           chart: jaeger
-          revision: 0.71.13
+          revision: 0.1.12
           repoURL: https://jaegertracing.github.io/helm-charts
         - name: kiali-operator
           chart: kiali-operator
