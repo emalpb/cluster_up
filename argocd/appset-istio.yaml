@@ -25,6 +25,28 @@ spec:
               service:
                 type: LoadBalancer
 
+          - name: jaeger
+            chart: jaeger
+            revision: 0.1.12
+            repoURL: https://jaegertracing.github.io/helm-charts
+            values: |
+              provisionDataStore:
+                cassandra: false
+                elasticsearch: false
+              allInOne:
+                enabled: true
+              storage:
+                type: memory
+
+          - name: kiali-operator
+            chart: kiali-operator
+            revision: 1.84.0
+            repoURL: https://kiali.org/helm-charts
+            values: |
+              cr:
+                create: true
+                namespace: istio-system
+
   template:
     metadata:
       name: '{{name}}'
