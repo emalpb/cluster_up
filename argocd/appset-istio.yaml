@@ -3,34 +3,37 @@ kind: ApplicationSet
 metadata:
   name: istio-stack
   namespace: argocd
-spec:
-  generators:
-    - list:
-        elements:
-          - name: istio-base
-            chart: base
-            revision: 1.25.2
-          - name: istiod
-            chart: istiod
-            revision: 1.25.2
-          - name: istio-ingressgateway
-            chart: gateway
-            revision: 1.25.2
-          - name: jaeger
-            chart: jaeger-all-in-one
-            repoURL: https://raw.githubusercontent.com/hansehe/jaeger-all-in-one/master/helm/charts
-            revision: 0.1.12
-          - name: kiali-operator
-            chart: kiali-operator
-            repoURL: https://kiali.org/helm-charts
-            revision: 1.84.0
+generators:
+  - list:
+      elements:
+        - name: istio-base
+          chart: base
+          revision: 1.25.2
+          repoURL: https://istio-release.storage.googleapis.com/charts
+        - name: istiod
+          chart: istiod
+          revision: 1.25.2
+          repoURL: https://istio-release.storage.googleapis.com/charts
+        - name: istio-ingressgateway
+          chart: gateway
+          revision: 1.25.2
+          repoURL: https://istio-release.storage.googleapis.com/charts
+        - name: jaeger
+          chart: jaeger
+          revision: 0.71.13
+          repoURL: https://jaegertracing.github.io/helm-charts
+        - name: kiali-operator
+          chart: kiali-operator
+          revision: 1.84.0
+          repoURL: https://kiali.org/helm-charts
+
   template:
     metadata:
       name: '{{name}}'
     spec:
       project: istio-system
       source:
-        repoURL: '{{ if .repoURL }}{{ .repoURL }}{{ else }}https://istio-release.storage.googleapis.com/charts{{ end }}'
+        repoURL: '{{repoURL}}'
         chart: '{{chart}}'
         targetRevision: '{{revision}}'
         helm:
