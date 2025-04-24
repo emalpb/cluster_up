@@ -1,4 +1,3 @@
----
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -59,10 +58,14 @@ spec:
         targetRevision: '{{revision}}'
         helm:
           releaseName: '{{name}}'
-          valueFiles:
-            - inline: '{{values}}'
+          values: '{{values}}'
       destination:
         server: https://kubernetes.default.svc
         namespace: istio-system
       syncPolicy:
-        automated
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - PruneLast=true
+          - CreateNamespace=true
