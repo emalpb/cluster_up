@@ -58,14 +58,10 @@ spec:
         targetRevision: '{{revision}}'
         helm:
           releaseName: '{{name}}'
-          values: '{{values}}'
+          valueFiles:
+            - inline: '{{values}}'
       destination:
         server: https://kubernetes.default.svc
         namespace: istio-system
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
-        syncOptions:
-          - PruneLast=true
-          - CreateNamespace=true
+        automated
