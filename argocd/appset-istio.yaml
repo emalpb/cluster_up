@@ -26,17 +26,9 @@ spec:
                 type: LoadBalancer
 
           - name: jaeger
-            chart: jaeger
+            chart: jaeger-all-in-one
             revision: 0.1.12
-            repoURL: https://jaegertracing.github.io/helm-charts
-            values: |
-              provisionDataStore:
-                cassandra: false
-                elasticsearch: false
-              allInOne:
-                enabled: true
-              storage:
-                type: memory
+            repoURL: https://raw.githubusercontent.com/hansehe/jaeger-all-in-one/master/helm/charts
 
           - name: kiali-operator
             chart: kiali-operator
