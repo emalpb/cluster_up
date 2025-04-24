@@ -3,58 +3,69 @@ kind: ApplicationSet
 metadata:
   name: istio-stack
   namespace: argocd
-generators:
-  - list:
-      elements:
-        - name: istio-base
-          chart: base
-          revision: 1.25.2
-          repoURL: https://istio-release.storage.googleapis.com/charts
-        - name: istiod
-          chart: istiod
-          revision: 1.25.2
-          repoURL: https://istio-release.storage.googleapis.com/charts
-        - name: istio-ingressgateway
-          chart: gateway
-          revision: 1.25.2
-          repoURL: https://istio-release.storage.googleapis.com/charts
-        - name: jaeger
-          chart: jaeger
-          revision: 0.1.12
-          repoURL: https://jaegertracing.github.io/helm-charts
-        - name: kiali-operator
-          chart: kiali-operator
-          revision: 1.84.0
-          repoURL: https://kiali.org/helm-charts
+spec:
+  generators:
+    - list:
+        elements:
+          - name: istio-base
+            chart: base
+            revision: 1.25.2
+            repoURL: https://istio-release.storage.googleapis.com/charts
 
-template:
-  metadata:
-    name: "{{name}}"
-  spec:
-    project: istio-system
-    source:
-      repoURL: "{{repoURL}}"
-      chart: "{{chart}}"
-      targetRevision: "{{revision}}"
-      helm:
-        releaseName: "{{name}}"
-        values: |
-          {{- if eq .name "istio-ingressgateway" }}
-          service:
-            type: LoadBalancer
-          {{- end }}
-          {{- if eq .name "kiali-operator" }}
-          cr:
-            create: true
-            namespace: istio-system
-          {{- end }}
-    destination:
-      server: https://kubernetes.default.svc
-      namespace: istio-system
-    syncPolicy:
-      automated:
-        prune: true
-        selfHeal: true
-      syncOptions:
-        - PruneLast=true
-        - CreateNamespace=true
+          - name: istiod
+            chart: istiod
+            revision: 1.25.2
+            repoURL: https://istio-release.storage.googleapis.com/charts
+
+          - name: istio-ingressgateway
+            chart: gateway
+            revision: 1.25.2
+            repoURL: https://istio-release.storage.googleapis.com/charts
+            values: |
+              service:
+                type: LoadBalancer
+
+          - name: jaeger
+            chart: jaeger
+            revision: 0.1.12
+            repoURL: https://jaegertracing.github.io/helm-charts
+            values: |
+              provisionDataStore:
+                cassandra: false
+                elasticsearch: false
+              allInOne:
+                enabled: true
+              storage:
+                type: memory
+
+          - name: kiali-operator
+            chart: kiali-operator
+            revision: 1.84.0
+            repoURL: https://kiali.org/helm-charts
+            values: |
+              cr:
+                create: true
+                namespace: istio-system
+
+  template:
+    metadata:
+      name: '{{name}}'
+    spec:
+      project: istio-system
+      source:
+        repoURL: '{{repoURL}}'
+        chart: '{{chart}}'
+        targetRevision: '{{revision}}'
+        helm:
+          releaseName: '{{name}}'
+          values: '{{values}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: istio-system
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - PruneLast=true
+          - CreateNamespace=true
