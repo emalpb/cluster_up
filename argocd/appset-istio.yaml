@@ -27,34 +27,34 @@ generators:
           revision: 1.84.0
           repoURL: https://kiali.org/helm-charts
 
-  template:
-    metadata:
-      name: '{{name}}'
-    spec:
-      project: istio-system
-      source:
-        repoURL: '{{repoURL}}'
-        chart: '{{chart}}'
-        targetRevision: '{{revision}}'
-        helm:
-          releaseName: '{{name}}'
-          values: |
-            {{- if eq .name "istio-ingressgateway" }}
-            service:
-              type: LoadBalancer
-            {{- end }}
-            {{- if eq .name "kiali-operator" }}
-            cr:
-              create: true
-              namespace: istio-system
-            {{- end }}
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: istio-system
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
-        syncOptions:
+template:
+  metadata:
+    name: "{{name}}"
+  spec:
+    project: istio-system
+    source:
+      repoURL: "{{repoURL}}"
+      chart: "{{chart}}"
+      targetRevision: "{{revision}}"
+      helm:
+        releaseName: "{{name}}"
+        values: |
+          {{- if eq .name "istio-ingressgateway" }}
+          service:
+            type: LoadBalancer
+          {{- end }}
+          {{- if eq .name "kiali-operator" }}
+          cr:
+            create: true
+            namespace: istio-system
+          {{- end }}
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: istio-system
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
         - PruneLast=true
         - CreateNamespace=true
