@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -11,13 +12,11 @@ spec:
             chart: base
             repoURL: https://istio-release.storage.googleapis.com/charts
             revision: 1.25.2
-            values: ""
 
           - name: istiod
             chart: istiod
             repoURL: https://istio-release.storage.googleapis.com/charts
             revision: 1.25.2
-            values: ""
 
           - name: istio-ingressgateway
             chart: gateway
@@ -31,7 +30,6 @@ spec:
             chart: jaeger-all-in-one
             repoURL: https://raw.githubusercontent.com/hansehe/jaeger-all-in-one/master/helm/charts
             revision: 0.1.12
-            values: ""
 
           - name: kiali-operator
             chart: kiali-operator
@@ -53,7 +51,10 @@ spec:
         targetRevision: '{{revision}}'
         helm:
           releaseName: '{{name}}'
-          values: '{{values}}'
+          {{- if .values }}
+          values: |
+            {{ .values | nindent 12 }}
+          {{- end }}
       destination:
         server: https://kubernetes.default.svc
         namespace: istio-system
