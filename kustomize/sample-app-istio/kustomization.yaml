@@ -3,5 +3,5 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
-  - raw.githubusercontent.com/istio/istio/release-1.25/samples/bookinfo/platform/kube/bookinfo.yaml?ref=main
+  - https://raw.githubusercontent.com/istio/istio/release-1.25/samples/bookinfo/platform/kube/bookinfo.yaml
 
