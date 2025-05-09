@@ -1,0 +1,20 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: botkube
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: infracloudio/botkube
+    repoURL: https://infracloudio.github.io/charts
+    helm:
+      releaseName: botkube
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
