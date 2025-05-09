@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+helmCharts:
+  - name: botkube
+    repo: https://charts.botkube.io/
+    version: 1.14.0
+    releaseName: botkube
+    namespace: default
+    valuesInline:
+       communications.default-group.socketSlack.enabled: true
+       communications.default-group.socketSlack.channels.default.name: ema
+       communications.default-group.socketSlack.appToken: ${SLACK_API_APP_TOKEN} 
+       communications.default-group.socketSlack.botToken: ${SLACK_API_BOT_TOKEN} 
+       settings.clusterName: kind-kind-prueba-end
