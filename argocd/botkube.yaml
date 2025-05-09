@@ -11,7 +11,7 @@ spec:
     repoURL: https://charts.botkube.io/
     targetRevision: 1.14.0
     helm:
-      releaseName: infracloudio/botkube
+      releaseName: botkube
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: default
