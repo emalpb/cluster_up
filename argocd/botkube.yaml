@@ -8,7 +8,7 @@ spec:
   project: default
   source:
     chart: infracloudio/botkube
-    repoURL: https://infracloudio.github.io/charts
+    repoURL: https://charts.botkube.io/
     targetRevision: 1.14.0
     helm:
       releaseName: botkube
