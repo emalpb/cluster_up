@@ -7,11 +7,11 @@ metadata:
 spec:
   project: default
   source:
-    chart: infracloudio/botkube
+    chart: botkube
     repoURL: https://charts.botkube.io/
     targetRevision: 1.14.0
     helm:
-      releaseName: botkube
+      releaseName: infracloudio/botkube
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: default
